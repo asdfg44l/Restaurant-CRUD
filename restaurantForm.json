@@ -1,0 +1,46 @@
+{
+  "results": [
+    {
+      "type": "text",
+      "title": "餐廳名稱",
+      "formName": "name",
+      "value": ""
+    },
+    {
+      "type": "text",
+      "title": "餐廳地址",
+      "formName": "location",
+      "value": ""
+    },
+    {
+      "type": "text",
+      "title": "餐廳類別",
+      "formName": "category",
+      "value": ""
+    },
+    {
+      "type": "phone",
+      "title": "電話號碼",
+      "formName": "phone",
+      "value": ""
+    },
+    {
+      "type": "text",
+      "title": "圖片連結",
+      "formName": "image",
+      "value": ""
+    },
+    {
+      "type": "number",
+      "title": "餐廳評分",
+      "formName": "rating",
+      "value": ""
+    },
+    {
+      "type": "text",
+      "title": "餐廳概述",
+      "formName": "description",
+      "value": ""
+    }
+  ]
+}

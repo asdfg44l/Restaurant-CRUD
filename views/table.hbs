@@ -1,0 +1,19 @@
+<div class="container my-3">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2 class="text-center py-2 mb-3 border-bottom">{{ config.pageTitle }}</h2>
+      <form action="{{ config.method }}" method="post">
+        {{#each restaurantForm}}
+        <div class="input-group flex-nowrap mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="addon-wrapping">{{ this.title }}*</span>
+          </div>
+          <input type="{{ this.type }}" class="form-control" placeholder="{{ this.formName }}" aria-label="Username"
+            aria-describedby="addon-wrapping" name="{{ this.formName }}" value="{{ this.value }}">
+        </div>
+        {{/each}}
+        <button type="submit" class="btn btn-info btn-block">送出</button>
+      </form>
+    </div>
+  </div>
+</div>
