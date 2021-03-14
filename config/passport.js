@@ -65,6 +65,7 @@ module.exports = app => {
   //去序列化
   passport.deserializeUser((id, done) => {
     User.findById(id)
+      .lean()
       .then(user => done(null, user))
       .catch(err => done(err, false))
   })
