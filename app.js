@@ -3,7 +3,7 @@ const session = require('express-session')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
-
+const router = require('./routes')
 const usePassport = require('./config/passport')
 require('./config/mongoose') //connect database
 
@@ -32,9 +32,15 @@ usePassport(app)
 //public
 app.use(express.static('public'))
 
-//route
-const router = require('./routes')
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  // res.locals.warning_msg = req.flash('warning_msg')
+  // res.locals.success_msg = req.flash('success_msg')
+  next()
+})
 
+//route
 app.use(router)
 
 //listening
