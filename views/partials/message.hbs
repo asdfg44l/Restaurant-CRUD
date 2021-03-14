@@ -7,10 +7,10 @@
 </div>
 {{/if}}
 
-{{#if warnings}}
-{{#each warnings}}
+{{#if errors}}
+{{#each errors}}
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  {{this}}
+  {{this.message}}
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
