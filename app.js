@@ -4,12 +4,15 @@ const exphbs = require('express-handlebars')
 const flash = require('connect-flash')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
-const router = require('./routes')
+const routes = require('./routes')
 const usePassport = require('./config/passport')
-require('./config/mongoose') //connect database
+//env
+require('./config/dotenv').loadEnv()
+//connect database
+require('./config/mongoose')
 
 //PORT
-const PORT = 3000
+const PORT = process.env.PORT
 
 //express app
 const app = express()
@@ -25,7 +28,7 @@ app.use(methodOverride('_method'))
 
 //session
 app.use(session({
-  secret: 'greenfrog',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
@@ -44,7 +47,7 @@ app.use((req, res, next) => {
 })
 
 //route
-app.use(router)
+app.use(routes)
 
 //listening
 app.listen(PORT)

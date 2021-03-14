@@ -1,3 +1,6 @@
+//env
+require('./config/dotenv').loadEnv()
+
 const db = require('../../config/mongoose')
 
 const Restaurant = require('../restaurant')
