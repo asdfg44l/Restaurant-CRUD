@@ -23,10 +23,10 @@ router.get('/search', (req, res) => {
     .lean()
     .sort({ _id: 'asc' })
     .then(restaurants => {
-      const restaurantList = restaurants.filter(restaurant => {
+      const List = restaurants.filter(restaurant => {
         return restaurant.name.toLocaleLowerCase().includes(keyword.toLowerCase())
       })
-      res.render('index', { restaurantList, keyword })
+      res.render('index', { restaurants: List, keyword })
     })
 })
 
