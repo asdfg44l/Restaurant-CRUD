@@ -22,7 +22,7 @@ router.get('/register', (req, res) => {
 router.post('/register', (req, res) => {
   const errors = []
   const { name, email, password, confirmPassword } = req.body
-  if (!name || !email || !password || !confirmPassword) {
+  if (!email || !password || !confirmPassword) {
     errors.push({ message: '所有欄位皆為必填' })
   }
   if (password !== confirmPassword) {
