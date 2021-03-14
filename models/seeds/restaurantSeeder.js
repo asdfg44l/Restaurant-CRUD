@@ -23,16 +23,25 @@ const defaultUsers = [
 ]
 
 db.once('open', () => {
-  Promise.all(defaultUsers.map(user =>
-    bycrpt
-      .genSalt(10)
-      .then(salt => bycrpt.hash(user.password, salt))
-      .then(hash => User.create({
-        name: user.name,
-        email: user.email,
-        password: hash
-      }))
-      .then(user => user)
+
+  //run seed
+  Promise.all(defaultUsers.map(defaultUser =>
+    //is User already exist?
+    User.find({ email: defaultUser.email })
+      .then(user => {
+        if (user) {
+          return process.exit()
+        }
+        bycrpt
+          .genSalt(10)
+          .then(salt => bycrpt.hash(user.password, salt))
+          .then(hash => User.create({
+            name: user.name,
+            email: user.email,
+            password: hash
+          }))
+          .then(user => user)
+      })
   ))
     .then(() => {
       //之後用 async 取代~ 不然好難看阿
