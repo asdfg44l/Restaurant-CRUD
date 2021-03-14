@@ -18,8 +18,9 @@ router.get('/add', (req, res) => {
 
 //取得詳細資訊
 router.get('/:id', (req, res) => {
+  const userId = req.user._id
   const selected_restaurant_id = req.params.id
-  Restaurant.findById(selected_restaurant_id)
+  Restaurant.findOne({ id: selected_restaurant_id, userId })
     .lean()
     .then(restaurant => res.render('show', { restaurant }))
     .catch(err => console.log(err))
@@ -27,16 +28,20 @@ router.get('/:id', (req, res) => {
 
 //新增頁面
 router.post('/add', (req, res) => {
-  Restaurant.create(req.body)
+  const userId = req.user._id
+  Restaurant.create({
+    ...req.body,
+    userId
+  })
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
 
 //前往編輯
 router.get('/edit/:id', (req, res) => {
-  ///restaurant/edit/{{ restaurant._id }}?_method=PUT
+  const userId = req.user._id
   const id = req.params.id
-  Restaurant.findById(id)
+  Restaurant.findOne({ id, userId })
     .lean()
     .then(restaurant => {
       const config = {
@@ -55,10 +60,11 @@ router.get('/edit/:id', (req, res) => {
 
 //編輯頁面
 router.put('/edit/:id', (req, res) => {
+  const userId = req.user._id
   const id = req.params.id
   const { name, location, category, phone, image, rating, description } = req.body
 
-  return Restaurant.findById(id)
+  return Restaurant.findOne({ id, userId })
     .then(restaurant => {
       restaurant.name = name
       restaurant.location = location
@@ -75,20 +81,12 @@ router.put('/edit/:id', (req, res) => {
 
 //刪除頁面
 router.delete('/:id', (req, res) => {
+  const userId = req.user._id
   const id = req.params.id
-  return Restaurant.findById(id)
+  return Restaurant.findOne({ id, userId })
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
-})
-
-//搜尋功能
-router.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  const restaurants = restaurantList.filter(restaurant => {
-    return restaurant.name.toLocaleLowerCase().includes(keyword.toLowerCase())
-  })
-  res.render('index', { restaurants, keyword })
 })
 
 module.exports = router
