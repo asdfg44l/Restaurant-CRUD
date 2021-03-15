@@ -39,7 +39,7 @@
               <div class="d-flex justify-content-end py-2">
                 <a href="/restaurant/edit/{{ this._id }}" type="button" class="btn btn-sm btn-outline-primary">編輯</a>
                 <form class="mx-2" action="./restaurant/{{ this._id }}?_method=DELETE" method="POST">
-                  <button type="submit" class="btn btn-sm btn-danger">刪除</button>
+                  <button type="submit" class="btn btn-sm btn-danger" onclick="return confirmWhileDelete()">刪除</button>
                 </form>
               </div>
             </div>
@@ -50,3 +50,9 @@
     </div>
   </div>
 </div>
+
+<script>
+  function confirmWhileDelete() {
+    return confirm("確定要刪除嗎?")
+  }
+</script>
