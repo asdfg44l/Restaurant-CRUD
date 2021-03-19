@@ -50,4 +50,6 @@ app.use((req, res, next) => {
 app.use(routes)
 
 //listening
-app.listen(PORT)
+app.listen(PORT, () => {
+  console.log(`The server is listening on http://localhost:${PORT}`)
+})
