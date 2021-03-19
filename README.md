@@ -42,3 +42,7 @@ npm install
 ```
 npm run seed
 ```
+5. 啟動專案
+```
+npm run dev
+```
