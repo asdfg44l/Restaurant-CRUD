@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const routes = require('./routes')
 const usePassport = require('./config/passport')
+const hbsHelpers = require('./utils/hbsHelpers')
 //env
 require('./config/dotenv').loadEnv()
 //connect database
@@ -18,7 +19,7 @@ const PORT = process.env.PORT
 const app = express()
 
 //view engine
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs', helpers: hbsHelpers }))
 app.set('view engine', 'hbs')
 //public
 app.use(express.static('public'))
