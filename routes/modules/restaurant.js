@@ -28,9 +28,16 @@ router.get('/:id', (req, res) => {
 
 //新增頁面
 router.post('/add', (req, res) => {
+  const { name, location, category, phone, image, rating, description } = req.body
   const userId = req.user._id
   Restaurant.create({
-    ...req.body,
+    name,
+    location,
+    category,
+    phone,
+    image,
+    rating,
+    description,
     userId
   })
     .then(() => res.redirect('/'))
@@ -43,16 +50,15 @@ router.get('/edit/:id', (req, res) => {
   const _id = req.params.id
   Restaurant.findOne({ _id, userId })
     .then(restaurant => {
-      console.log(restaurant)
       const config = {
         pageTitle: `編輯: ${restaurant.name}`,
         method: `/restaurant/edit/${restaurant._id}?_method=PUT`
       }
-      let Form = restaurantForm.map(item => {
+      let Form = JSON.parse(JSON.stringify(restaurantForm)) //deep copy (有 function 的話就不能用)
+      Form = Form.map(item => {
         item.value = restaurant[item.formName]
         return item
       })
-      // console.log(config.method)
       res.render('table', { config, restaurantForm: Form })
     })
     .catch(err => console.log(err))
