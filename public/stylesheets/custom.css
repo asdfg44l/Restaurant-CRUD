@@ -69,6 +69,11 @@ header {
   font-size: 0.8rem;
 }
 
+.restaurant-location {
+  color: #8ecae6;
+  font-size: 0.8rem;
+}
+
 .restaurant-show-title {
   position: relative;
   top: -100px;
